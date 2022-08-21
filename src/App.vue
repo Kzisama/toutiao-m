@@ -1,16 +1,22 @@
 <template>
   <div id="app">
-
     <router-view/>
-    <h1>黑马头条</h1>
-    <i class="iconfont icon-pinglun"></i>
-
   </div>
 </template>
 
 <script>
+// import {getAllChannnelsAPI} from '@/api';
+
 export default {
-  name: 'App'
+  // async created () {
+  //   try {
+  //     const res = await getAllChannnelsAPI ()
+  //     console.log (res)
+  //   } catch (err) {
+  //     alert ('出错啦')
+  //     console.dir (err)
+  //   }
+  // }
 }
 </script>
 
