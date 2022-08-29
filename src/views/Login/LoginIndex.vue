@@ -35,15 +35,15 @@
 </template>
 
 <script>
-import { loginAPi } from '@/api'
-import { setToken } from '@/utils/token'
-import { Notify } from 'vant'
+import {loginAPI} from '@/api'
+import {setToken} from '@/utils/token'
+import {Notify} from 'vant'
 
 export default {
   data () {
     return {
       user: {
-        mobile: '13888888888',
+        mobile: '13888881234',
         code: '246810' // 后台规定死了只能是 246810
       },
       isLoading: false
@@ -56,14 +56,20 @@ export default {
       // value 收集表单信息(参数名和值)
       // console.log ('submit', values);
       try {
-        const res = await loginAPi(this.user)
-        console.log(res)
+        const res = await loginAPI (this.user)
+        console.log (res)
         // 成功通知
-        Notify({ type: 'success', message: '登录成功' })
-        setToken(res.data.data.token)
+        Notify ({type: 'success', message: '登录成功'})
+        setToken (res.data.data.token)
+        localStorage.setItem('refresh_token',res.data.data.refresh_token)
+        // 登录成功跳转到主页（一定要写在最后）
+        // this.$router.push() 会产生历史记录，可以回退  this.$router.replace() 直接替换，不会产生历史记录，无法回退
+        await this.$router.replace ({
+          path: '/layout/home'
+        })
       } catch (err) {
         // Promise内ajax抛出错误,直接进入catch
-        Notify({ type: 'danger', message: '手机号或密码有误' })
+        Notify ({type: 'danger', message: '手机号或密码有误'})
       }
       // 请求发送完毕,无论成功还是不成功都将按钮恢复
       this.isLoading = false
